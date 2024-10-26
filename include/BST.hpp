@@ -85,6 +85,17 @@ bool BST<T>::search(std::unique_ptr<TreeNode<T>>& t, const T& key) {
     // if key exists in tree, return true
     // otherwise, return false
 
+    if(t == nullptr) {
+        return false;
+    } else {
+        if(t->element == key) {
+            return true;
+        } else if(t->element > key) {
+            return search(t->left, key);
+        } else {
+            return search(t->right, key);
+        }
+    }
 }
 
 template <typename T>
