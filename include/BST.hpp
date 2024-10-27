@@ -119,4 +119,33 @@ bool BST<T>::remove(std::unique_ptr<TreeNode<T>>& t, const T& key) {
     // if key does not exist in tree, return false
     // otherwise, return true
 
+    if(t == nullptr) {
+        return false;
+    } else {
+        if(t->element == key) {
+            if(t->left == nullptr) {
+                if(t->right == nullptr) {
+                    // no child
+                    t.reset();
+                } else {
+                    // right child
+                    t = std::move(t->right);
+                }
+            } else {
+                if(t->right == nullptr) {
+                    // left child
+                    t = std::move(t->left);
+                } else {
+                    // two child
+                    t->element = find_rightmost_key(t->left);
+                    remove(t->left, t->element);
+                }
+            }
+            return true;
+        } else if(t->element > key) {
+            return remove(t->left, key);
+        } else {
+            return remove(t->right, key);
+        }
+    }
 }
