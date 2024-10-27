@@ -101,6 +101,15 @@ bool BST<T>::search(std::unique_ptr<TreeNode<T>>& t, const T& key) {
 template <typename T>
 T BST<T>::find_rightmost_key(std::unique_ptr<TreeNode<T>>& t) {
     // TODO
+    if(t == nullptr) {
+        throw std::invalid_argument("This BST is empty!");
+    } else {
+        if(t->right == nullptr) {
+            return t->element;
+        } else {
+            return find_rightmost_key(t->right);
+        }
+    }
 }
 
 template <typename T>
